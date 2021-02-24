@@ -7,14 +7,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.SidStudio.ARay.HelperClasses.HomeAdapter.CategoriesAdapter;
 import com.SidStudio.ARay.HelperClasses.HomeAdapter.CategoriesHelperClass;
@@ -30,6 +33,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     RecyclerView categoriesRecycler;
     RecyclerView.Adapter featured_adapter;
     RecyclerView.Adapter categories_adapter;
+
 
     //Drawer menu
     DrawerLayout drawerLayout;
@@ -53,6 +57,13 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         //Menu hooks
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
+
+
+        //Hide or show items
+        Menu menu = navigationView.getMenu();
+        menu.findItem(R.id.nav_logout).setVisible(false);
+        menu.findItem(R.id.nav_profile).setVisible(false);
+
 
         navigationDrawer();
 
@@ -114,6 +125,27 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.nav_login:
+                Intent intent = new Intent(DashboardActivity.this, LoginStartupScreen.class);
+                startActivity(intent);
+                break;
+            case R.id.nav_home:
+                break;
+            case R.id.nav_logout:
+                Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_orders:
+                Toast.makeText(this, "Orders", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_profile:
+                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_rate_us:
+                Toast.makeText(this, "Rate us", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -129,6 +161,10 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
         categories_adapter = new CategoriesAdapter(categoriesLocations);
         categoriesRecycler.setAdapter(categories_adapter);
+    }
+
+    public void callLoginStartup(View view){
+        startActivity(new Intent(getApplicationContext(), LoginStartupScreen.class));
     }
 
     private void featuredRecycler() {

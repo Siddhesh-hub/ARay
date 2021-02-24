@@ -9,6 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".SignUp3rdClass"></activity>
+        <activity android:name=".SignUp2ndClass" />
+        <activity android:name=".SignUp1stClass" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".LoginStartupScreen" />
         <activity android:name=".DashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,10 +21,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SplashScreen">
-
-        </activity>
+        <activity android:name=".SplashScreen" />
 
         <meta-data
             android:name="preloaded_fonts"

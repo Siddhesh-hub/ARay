@@ -1,5 +1,21 @@
 <resources>
     <string name="app_name">ARay</string>
     <string name="logo_name">Get A Look</string>
-    <string name="slogan_name">We will help you to find your Look!</string>
+    <string name="slogan_name">We Care For You!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="forget_password">Forget Password</string>
+    <string name="signup">Signup</string>
+    <string name="enter_full_name">Enter Full Name</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="create_account">Create New Account</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="next_btn">Next</string>
+    <string name="enter_phone_number">Enter Phone Number</string>
+
+
 </resources>
