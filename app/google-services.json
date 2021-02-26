@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "632864644352",
+    "project_id": "aray-35030",
+    "storage_bucket": "aray-35030.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632864644352:android:c44e99290bf160703567e5",
+        "android_client_info": {
+          "package_name": "com.SidStudio.ARay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "632864644352-i4rm0lvb00qsrpj2i1cemmdbekv8njj0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTYjKxVgEbjnVgS7rao5LcgrqmUm2rUGQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "632864644352-i4rm0lvb00qsrpj2i1cemmdbekv8njj0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
