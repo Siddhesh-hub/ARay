@@ -73,6 +73,7 @@
 
 
         <com.chaos.view.PinView
+            android:id="@+id/pin_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:itemCount="6"
@@ -95,6 +96,7 @@
             android:layout_marginTop="30dp"
             android:background="@color/colorPrimary"
             android:text="@string/verify_code"
+            android:onClick="callNextScreenFromOTP"
             android:textColor="@color/black"
             android:transitionName="transition_OTP_screen" />
 

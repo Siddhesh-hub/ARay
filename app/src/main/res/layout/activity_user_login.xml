@@ -37,24 +37,36 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp">
+            android:layout_marginTop="60dp">
+
+
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/login_country_code_picker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/black_border"
+                android:padding="7dp"
+                app:ccp_autoDetectCountry="true"
+                app:ccp_showFlag="true"
+                app:ccp_showFullName="true"
+                app:ccp_showNameCode="true" />
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/login_username"
+                android:id="@+id/login_phone_number"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/username"
+                android:layout_below="@id/login_country_code_picker"
+                android:hint="@string/enter_phone_number"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
                 app:boxStrokeWidthFocused="2dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
                 app:hintTextColor="@color/black"
-                app:startIconDrawable="@drawable/ic_user"
+                app:startIconDrawable="@drawable/ic_phone"
                 app:startIconTint="@color/black">
-
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/login_phone_number_editText"
@@ -74,7 +86,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/login_username"
+                android:layout_below="@id/login_phone_number"
                 android:hint="@string/password"
                 android:textColorHint="@color/black"
                 app:boxStrokeColor="@color/black"
@@ -118,6 +130,7 @@
 
 
                 <Button
+                    android:id="@+id/login_forget_pwd_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -143,6 +156,7 @@
 
 
             <Button
+                android:id="@+id/signup_from_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/letTheUserLogIn"
@@ -153,7 +167,7 @@
                 android:text="Create Account" />
 
 
-            <!--RelativeLayout
+            <RelativeLayout
                 android:id="@+id/login_progress_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -170,7 +184,7 @@
                     android:layout_centerInParent="true" />
 
 
-            </RelativeLayout-->
+            </RelativeLayout>
 
 
         </RelativeLayout>
