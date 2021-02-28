@@ -24,6 +24,7 @@ public class SignUp1stClass extends AppCompatActivity {
 
     //Get data variables
     TextInputLayout fullname, username, email, password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +50,7 @@ public class SignUp1stClass extends AppCompatActivity {
     public void callNextSignupScreen(View view) {
         //String _fullname = fullname.getEditText().getText().toString();
         //showText.setText(_fullname);
-        if (!validateFullName() | !validateUsername() | !validateEmail() ) {
+        if (!validateFullName() | !validateUsername() | !validateEmail() | !validatePassword()) {
             return;
         }
 
@@ -82,7 +83,7 @@ public class SignUp1stClass extends AppCompatActivity {
 
     }
 
-    private boolean validateFullName(){
+    private boolean validateFullName() {
         String val = fullname.getEditText().getText().toString().trim();
         if (val.isEmpty()) {
             fullname.setError("Field can not be empty");
@@ -133,26 +134,45 @@ public class SignUp1stClass extends AppCompatActivity {
 
     private boolean validatePassword() {
         String val = password.getEditText().getText().toString().trim();
-        String checkPassword = "^" +
-                "(?=.*[0-9])" +         //at least 1 digit
-                "(?=.*[a-z])" +         //at least 1 lower case letter
-                "(?=.*[A-Z])" +         //at least 1 upper case letter
-                "(?=.*[a-zA-Z])" +      //any letter
-                "(?=.*[@#$%^&+=])" +    //at least 1 special character
-                "(?=S+$)" +           //no white spaces
-                ".{4,}" +               //at least 4 characters
-                "$";
+//        String checkPassword = "^" +
+//                "(?=.*[0-9])" +         //at least 1 digit
+//                //"(?=.*[a-z])" +         //at least 1 lower case letter
+//                "(?=.*[A-Z])" +         //at least 1 upper case letter
+//                "(?=.*[a-zA-Z])" +      //any letter
+//                "(?=.*[@#$%^&+=])" +    //at least 1 special character
+//                "(?=S+$)" +           //no white spaces
+//                ".{4,}" +               //at least 4 characters
+//                "$";
+
 
         if (val.isEmpty()) {
             password.setError("Field can not be empty");
             return false;
-        } else if (!val.matches(checkPassword)) {
-            password.setError("Password should contain 4 characters!");
+        } else if (val.length() >= 8) {
+            //number
+            if (val.matches("(.*[0-9].*)")) {
+                //upper case
+                if (val.matches("(.*[A-Z].*)")) {
+                    //symbol
+                    if (val.matches("^(?=.*[_.()$&@]).*$")) {
+                        password.setError(null);
+                        password.setErrorEnabled(false);
+                        return true;
+                    } else {
+                        password.setError("Password should contain at least 1 special character.");
+                        return false;
+                    }
+                } else {
+                    password.setError("Password should contain at least 1 Uppercase letter.");
+                    return false;
+                }
+            } else {
+                password.setError("Password should contain at least 1 digit.");
+                return false;
+            }
+        } else{
+            password.setError("Password must contain 8 letters.");
             return false;
-        } else {
-            password.setError(null);
-            password.setErrorEnabled(false);
-            return true;
         }
     }
 

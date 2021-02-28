@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.SidStudio.ARay.HelperClasses.HomeAdapter.CheckInternet;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,9 +47,11 @@ public class LoginActivity extends AppCompatActivity {
 
     public void letTheUserLoggedIn(View view) {
 
-        //
-        if (!isConnected(this)){
+        //Check the Internet connection
+        CheckInternet checkInternet = new CheckInternet();
+        if (!checkInternet.isConnected(this)){
             showCustomDialog();
+            return;
         }
 
         //Validate username and password
@@ -94,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                         String _email = snapshot.child(_completePhoneNumber).child("email").getValue(String.class);
                         String _phoneNo = snapshot.child(_completePhoneNumber).child("phoneNo").getValue(String.class);
                         String _dateOfBirth = snapshot.child(_completePhoneNumber).child("date").getValue(String.class);
-
+                        progressBar.setVisibility(View.GONE);
                         Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
                     } else {
@@ -134,25 +137,6 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    /*
-    Check
-    Internet
-    Connection
-     */
-
-    private boolean isConnected(LoginActivity login) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) login.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo wifiConnection = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-        NetworkInfo mobileConnection = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
-
-        if ((wifiConnection != null && wifiConnection.isConnected()) || (mobileConnection != null && mobileConnection.isConnected())){
-            return true;
-        } else{
-            return false;
-        }
-    }
-
     private boolean validateFields() {
         String _phoneNumber = phoneNumber.getEditText().getText().toString().trim();
         String _password = password.getEditText().getText().toString().trim();
@@ -177,6 +161,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void callForgetPassword(View view) {
+        startActivity(new Intent(getApplicationContext(), ForgetPassword.class));
+
 
     }
 }

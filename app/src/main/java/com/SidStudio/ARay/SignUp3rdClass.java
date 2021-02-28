@@ -18,7 +18,7 @@ public class SignUp3rdClass extends AppCompatActivity {
 
     ScrollView scrollView;
     TextInputLayout getPhoneNumber;
-    CountryCodePicker getCountryCode, country_code;
+    CountryCodePicker getCountryCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +29,7 @@ public class SignUp3rdClass extends AppCompatActivity {
         scrollView = findViewById(R.id.signup_3rd_screen_scroll_view);
         getCountryCode = findViewById(R.id.country_code_picker);
         getPhoneNumber = findViewById(R.id.signup_phone_number);
+
     }
 
     public void callOTPVerification(View view) {
@@ -37,7 +38,7 @@ public class SignUp3rdClass extends AppCompatActivity {
         }
 
         String countryCode = getCountryCode.getSelectedCountryCode();
-        String phoneNumber = getPhoneNumber.getEditText().getText().toString();
+        String phoneNo = getPhoneNumber.getEditText().getText().toString();
 
         String fullnameF = getIntent().getStringExtra("fullname");
         String usernameF = getIntent().getStringExtra("username");
@@ -55,7 +56,8 @@ public class SignUp3rdClass extends AppCompatActivity {
         intent.putExtra("gender", genderF);
         intent.putExtra("birth_date", birth_dateF);
         intent.putExtra("countryCode", countryCode);
-        intent.putExtra("phoneNumber", phoneNumber);
+        intent.putExtra("phoneNo", phoneNo);
+        intent.putExtra("whatToDo", "createNewUser");
 
 //Add Transition
         Pair[] pairs = new Pair[1];
