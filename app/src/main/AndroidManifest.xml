@@ -9,16 +9,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ForgetPWDSuccessMessage" android:parentActivityName=".LoginStartupScreen"></activity>
-        <activity android:name=".SetNewPassword" android:parentActivityName=".MakeSelection"/>
-        <activity android:name=".MakeSelection" android:parentActivityName=".ForgetPassword"/>
-        <activity android:name=".ForgetPassword" android:parentActivityName=".LoginActivity"/>
-        <activity android:name=".VerifyOTP" android:parentActivityName=".SignUp3rdClass"/>
-        <activity android:name=".SignUp3rdClass" android:parentActivityName=".SignUp2ndClass"/>
-        <activity android:name=".SignUp2ndClass" android:parentActivityName=".SignUp1stClass"/>
-        <activity android:name=".SignUp1stClass" android:parentActivityName=".LoginStartupScreen"/>
-        <activity android:name=".LoginActivity" android:parentActivityName=".LoginStartupScreen"/>
-        <activity android:name=".LoginStartupScreen" android:parentActivityName=".DashboardActivity"/>
+        <activity android:name=".SessionDashboard"></activity>
+        <activity
+            android:name=".ForgetPWDSuccessMessage"
+            android:parentActivityName=".LoginStartupScreen" />
+        <activity
+            android:name=".SetNewPassword"
+            android:parentActivityName=".MakeSelection" />
+        <activity
+            android:name=".MakeSelection"
+            android:parentActivityName=".ForgetPassword" />
+        <activity
+            android:name=".ForgetPassword"
+            android:parentActivityName=".LoginActivity" />
+        <activity
+            android:name=".VerifyOTP"
+            android:parentActivityName=".SignUp3rdClass" />
+        <activity
+            android:name=".SignUp3rdClass"
+            android:parentActivityName=".SignUp2ndClass" />
+        <activity
+            android:name=".SignUp2ndClass"
+            android:parentActivityName=".SignUp1stClass" />
+        <activity
+            android:name=".SignUp1stClass"
+            android:parentActivityName=".LoginStartupScreen" />
+        <activity
+            android:name=".LoginActivity"
+            android:parentActivityName=".LoginStartupScreen" />
+        <activity
+            android:name=".LoginStartupScreen"
+            android:parentActivityName=".DashboardActivity" />
         <activity android:name=".DashboardActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,6 +48,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".SplashScreen" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

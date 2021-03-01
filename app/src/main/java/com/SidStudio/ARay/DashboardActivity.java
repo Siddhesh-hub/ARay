@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.SidStudio.ARay.Databases.SessionManager;
 import com.SidStudio.ARay.HelperClasses.HomeAdapter.CategoriesAdapter;
 import com.SidStudio.ARay.HelperClasses.HomeAdapter.CategoriesHelperClass;
 import com.SidStudio.ARay.HelperClasses.HomeAdapter.FeaturedAdapter;
@@ -164,7 +165,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     }
 
     public void callLoginStartup(View view){
-        startActivity(new Intent(getApplicationContext(), LoginStartupScreen.class));
+        SessionManager sessionManager = new SessionManager(getApplicationContext(), SessionManager.SESSION_USERSESSION);
+        if (sessionManager.checkLogin()){
+            startActivity(new Intent(getApplicationContext(), SessionDashboard.class));
+        }else {
+            startActivity(new Intent(getApplicationContext(), LoginStartupScreen.class));
+        }
     }
 
     private void featuredRecycler() {

@@ -69,7 +69,7 @@ public class VerifyOTP extends AppCompatActivity {
                 phoneNo,        // Phone number to verify
                 60,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
-                TaskExecutors.MAIN_THREAD,// Activity (for callback binding)
+                this,// Activity (for callback binding)
                 mCallbacks);        // OnVerificationStateChangedCallbacks
 
         Toast.makeText(VerifyOTP.this, "Code sent", Toast.LENGTH_SHORT).show();
@@ -145,7 +145,7 @@ public class VerifyOTP extends AppCompatActivity {
         FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
         Toast.makeText(this, "Creating reference", Toast.LENGTH_SHORT).show();
         DatabaseReference reference = rootNode.getReference().child("Users");
-        Toast.makeText(this, "interacting with userhelper classs.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "interacting with userhelper class.", Toast.LENGTH_SHORT).show();
         //Create helperclass reference and store data using firebase
         UserHelperClass addNewUser = new UserHelperClass(fullName, username, email, phoneNo, password, date, gender);
         reference.child(phoneNo).setValue(addNewUser);
