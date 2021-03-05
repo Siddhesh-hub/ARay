@@ -40,7 +40,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     DrawerLayout drawerLayout;
     NavigationView navigationView;
 
-    ImageView menuIcon;
+    ImageView menuIcon, eyeGlasses, sunGlasses, readingGlasses, powerGlasses;
     static final float END_SCALE = 0.7f;
     LinearLayout contentView;
 
@@ -54,6 +54,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         categoriesRecycler = findViewById(R.id.cat_recycler);
         menuIcon = findViewById(R.id.nav_menu_icon);
         contentView = findViewById(R.id.content);
+
+        //Imageview hooks
+        eyeGlasses = findViewById(R.id.dashboard_eyeglasses_imgview);
+        sunGlasses = findViewById(R.id.dashboard_sunglasses_imgview);
+        readingGlasses = findViewById(R.id.dashboard_readingglasses_imgview);
+        powerGlasses = findViewById(R.id.dashboard_powerglasses_imgview);
 
         //Menu hooks
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -171,6 +177,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         }else {
             startActivity(new Intent(getApplicationContext(), LoginStartupScreen.class));
         }
+        finish();
     }
 
     private void featuredRecycler() {
@@ -189,6 +196,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
         GradientDrawable featured_gradient = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{0xffeff400, 0xffaff600});
 
+    }
+
+    // Call to Next screen
+    public void callGlassesList(View view){
+        startActivity(new Intent(getApplicationContext(), GlassesList.class));
+        finish();
     }
 
 

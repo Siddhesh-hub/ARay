@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="5dp"
+    android:id="@+id/cardview"
+    app:cardCornerRadius="5dp"
+    android:layout_margin="10dp"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp">
+
+        <ImageView
+            android:id="@+id/view_thumbnail"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:textAlignment="center"
+            android:id="@+id/view_Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/view_thumbnail"
+            android:text="This is Demo Name"
+            android:textColor="#000"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@id/view_Name"
+            android:layout_toRightOf="@id/view_thumbnail"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/lin_lay_1"
+                android:layout_marginLeft="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view_Name"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/view_thumbnail"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/brandon_grotesque_light"
+                    android:text="Price"
+                    android:textColor="#000"
+                    android:textSize="25sp" />
+
+
+                <TextView
+                    android:id="@+id/view_Price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_price"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/view_thumbnail"
+                    android:layout_weight="1"
+                    android:text="Rs.1299"
+                    android:textColor="#000"
+                    android:textSize="25sp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_frame"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/view_Name"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/lin_lay_1"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/brandon_grotesque_light"
+                    android:text="Frame"
+                    android:textColor="#000"
+                    android:textSize="25sp" />
+
+
+                <TextView
+                    android:id="@+id/view_Frame"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/txt_frame"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/view_thumbnail"
+                    android:layout_weight="1"
+                    android:text=""
+                    android:textColor="#000"
+                    android:textSize="25sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
