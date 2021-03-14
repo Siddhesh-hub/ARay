@@ -4,19 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.SidStudio.ARay.Admin.AdminDashboardActivity;
 import com.SidStudio.ARay.Databases.SessionManager;
 import com.SidStudio.ARay.HelperClasses.HomeAdapter.CheckInternet;
 import com.google.android.material.textfield.TextInputEditText;
@@ -36,13 +36,16 @@ public class LoginActivity extends AppCompatActivity {
     CountryCodePicker countryCodePicker;
     TextInputLayout phoneNumber, password;
     RelativeLayout progressBar;
-    Button create_acc_btn;
+    Button create_acc_btn, login_btn;
     CheckBox rememberMe;
     TextInputEditText phoneNumberEditText, passwordEditText;
+    TextView beingAdmin, notAdmin;
+    private String parentDBname = "Users";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_user_login);
 
         //hooks
@@ -54,11 +57,14 @@ public class LoginActivity extends AppCompatActivity {
         rememberMe = findViewById(R.id.remember_me);
         phoneNumberEditText = findViewById(R.id.login_phone_number_editText);
         passwordEditText = findViewById(R.id.login_password_editText);
+        beingAdmin = findViewById(R.id.signin_admin);
+        notAdmin = findViewById(R.id.signin_not_admin);
+        login_btn = findViewById(R.id.letTheUserLogIn);
 
 
         //Check whether phone number and password is already saved in shared preferences or not
         SessionManager sessionManager = new SessionManager(LoginActivity.this, SessionManager.SESSION_REMEMBERME);
-        if (sessionManager.checkRememberMe()){
+        if (sessionManager.checkRememberMe()) {
             HashMap<String, String> rememberMeDetails = sessionManager.getRememberMeDetailsFromSession();
             phoneNumberEditText.setText(rememberMeDetails.get(SessionManager.KEY_SESSIONPHONENUMBER));
             passwordEditText.setText(rememberMeDetails.get(SessionManager.KEY_SESSIONPASSWORD));
@@ -69,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //Check the Internet connection
         CheckInternet checkInternet = new CheckInternet();
-        if (!checkInternet.isConnected(this)){
+        if (!checkInternet.isConnected(this)) {
             showCustomDialog();
             return;
         }
@@ -96,14 +102,14 @@ public class LoginActivity extends AppCompatActivity {
         final String _completePhoneNumber = "+" + countryCodePicker.getFullNumber() + _phoneNumber;
 
         //Remember me
-        if (rememberMe.isChecked()){
+        if (rememberMe.isChecked()) {
             SessionManager sessionManager = new SessionManager(LoginActivity.this, SessionManager.SESSION_REMEMBERME);
             sessionManager.createRememberMeSession(_phoneNumber, _password);
 
         }
 
         //Database queries
-        Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNo").equalTo(_completePhoneNumber);
+        Query checkUser = FirebaseDatabase.getInstance().getReference(parentDBname).orderByChild("phoneNo").equalTo(_completePhoneNumber);
 
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -134,7 +140,12 @@ public class LoginActivity extends AppCompatActivity {
                         SessionManager sessionManager = new SessionManager(LoginActivity.this, SessionManager.SESSION_USERSESSION);
                         sessionManager.createLoginSession(_fullname, _username, _email, _password, _gender, _dateOfBirth, _phoneNo);
 
-                        startActivity(new Intent(getApplicationContext(), SessionDashboard.class));
+                        if (parentDBname == "Users") {
+                            startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+                        }else if(parentDBname == "Admins"){
+                            startActivity(new Intent(getApplicationContext(), AdminDashboardActivity.class));
+                        }
+
                         progressBar.setVisibility(View.GONE);
                         Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
@@ -147,6 +158,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "User does not exist", Toast.LENGTH_SHORT).show();
                 }
             }
+
             //If any database error has occur this function will roll out.
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -196,6 +208,23 @@ public class LoginActivity extends AppCompatActivity {
         Intent signupfromlogin = new Intent(getApplicationContext(), SignUp1stClass.class);
         startActivity(signupfromlogin);
 
+    }
+
+    public void callAdminLogin(View view) {
+        login_btn.setText("Login as Admin");
+        beingAdmin.setVisibility(View.GONE);
+        notAdmin.setVisibility(View.VISIBLE);
+        parentDBname = "Admins";
+
+        notAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                login_btn.setText("Login");
+                beingAdmin.setVisibility(View.VISIBLE);
+                notAdmin.setVisibility(View.INVISIBLE);
+                parentDBname = "Users";
+            }
+        });
     }
 
     public void callForgetPassword(View view) {

@@ -1,17 +1,33 @@
 package com.SidStudio.ARay;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.SidStudio.ARay.Databases.SessionManager;
+import com.SidStudio.ARay.Prevalent.Prevalent;
 import com.bumptech.glide.Glide;
+import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
 
 public class IndividualDescFragment extends Fragment {
 
@@ -74,13 +90,75 @@ public class IndividualDescFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_individual_desc, container, false);
 
         ImageView imageView = view.findViewById(R.id.individual_imageview);
-        TextView nameView = view.findViewById(R.id.individual_nameview);
-        TextView warrantyView = view.findViewById(R.id.individual_warrantyview);
+        TextView nameView = view.findViewById(R.id.individual_name_view);
+        TextView warrantyView = view.findViewById(R.id.individual_warranty_view);
+        TextView priceView = view.findViewById(R.id.individual_price_view);
+        Button addToCartBtn = view.findViewById(R.id.individual_add_to_cart_btn);
+        ElegantNumberButton quantityBtn = view.findViewById(R.id.individual_quantity_btn);
 
         nameView.setText(glassName);
         warrantyView.setText(glassWarranty);
+        priceView.setText(glassPrice);
         Glide.with(getContext()).load(glassImage).into(imageView);
+
+        addToCartBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addingToCartList();
+            }
+        });
+
         return view;
+    }
+
+    private void addingToCartList() {
+        String saveCurrentTime, saveCurrentDate;
+
+        Calendar callForDate = Calendar.getInstance();
+
+        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
+        saveCurrentDate = currentDate.format(callForDate.getTime());
+
+        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
+        saveCurrentTime = currentTime.format(callForDate.getTime());
+
+        final DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
+
+        final HashMap<String, Object> cartMap =  new HashMap<>();
+        cartMap.put("glassId", glassId);
+        cartMap.put("glassName", glassName);
+        cartMap.put("glassDiscount", "");
+        cartMap.put("glassFrameType", glassFrameType);
+        cartMap.put("glassImage", glassImage);
+        cartMap.put("date", saveCurrentDate);
+        cartMap.put("glassPrice", glassPrice);
+        cartMap.put("time", saveCurrentTime);
+
+        SessionManager sessionManager = new SessionManager(getContext(), SessionManager.SESSION_REMEMBERME);
+        HashMap<String, String> SessionDetails = sessionManager.getUserDetailsFromSession();
+        String userPhoneNumber = SessionDetails.get(SessionManager.KEY_PHONENUMBER);
+
+        cartListRef.child("User View").child(userPhoneNumber)
+                .child("Products").child(glassId)
+                .updateChildren(cartMap)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            cartListRef.child("Admin View").child(userPhoneNumber)
+                                    .child("Products").child(glassId)
+                                    .updateChildren(cartMap)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            Toast.makeText(getContext(), "Added to cart list.", Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(getContext(), GlassesList.class));
+                                        }
+                                    });
+                        }
+                    }
+                });
+
     }
 
     public void onBackPressed(){

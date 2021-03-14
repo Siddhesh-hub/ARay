@@ -34,7 +34,7 @@ public class VerifyOTP extends AppCompatActivity {
     TextView phoneTxt;
     PinView pinFromUser;
     String codeBySystem;
-    String fullName, username, email, password, gender, date, phoneNo, whatToDo;
+    String fullName, username, email, password, gender, date, phoneNo, whatToDo, address, image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,7 +147,7 @@ public class VerifyOTP extends AppCompatActivity {
         DatabaseReference reference = rootNode.getReference().child("Users");
         Toast.makeText(this, "interacting with userhelper class.", Toast.LENGTH_SHORT).show();
         //Create helperclass reference and store data using firebase
-        UserHelperClass addNewUser = new UserHelperClass(fullName, username, email, phoneNo, password, date, gender);
+        UserHelperClass addNewUser = new UserHelperClass(fullName, username, email, phoneNo, password, date, gender, image, address);
         reference.child(phoneNo).setValue(addNewUser);
 
         //We will also create a Session here in next videos to keep the user logged In

@@ -2,12 +2,12 @@ package com.SidStudio.ARay.Databases;
 
 public class UserHelperClass {
 
-    String fullName, username, email, phoneNo, password, date, gender;
+    String fullName, username, email, phoneNo, password, date, gender, image, address;
 
     public UserHelperClass() {
     }
 
-    public UserHelperClass(String fullName, String username, String email, String phoneNo, String password, String date, String gender) {
+    public UserHelperClass(String fullName, String username, String email, String phoneNo, String password, String date, String gender, String image, String address) {
         this.fullName = fullName;
         this.username = username;
         this.email = email;
@@ -15,6 +15,8 @@ public class UserHelperClass {
         this.password = password;
         this.date = date;
         this.gender = gender;
+        this.image = image;
+        this.address = address;
     }
 
     public String getFullName() {
@@ -71,5 +73,21 @@ public class UserHelperClass {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -136,6 +135,11 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             case R.id.nav_login:
                 Intent intent = new Intent(DashboardActivity.this, LoginStartupScreen.class);
                 startActivity(intent);
+                break;
+            case R.id.nav_setting:
+                //intent = new Intent(DashboardActivity.this, Settings.class);
+                //startActivity(intent);
+                Toast.makeText(this, "Disabled for further development", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_home:
                 break;

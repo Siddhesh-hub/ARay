@@ -11,6 +11,11 @@
             android:id="@+id/nav_search"
             android:title="Search"
             android:icon="@drawable/ic_search"/>
+
+        <item
+            android:id="@+id/nav_setting"
+            android:title="Settings"
+            android:icon="@drawable/ic_setting"/>
     </group>
 
     <item android:title="Profile">
