@@ -3,6 +3,7 @@ package com.SidStudio.ARay;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -62,5 +63,9 @@ public class SessionDashboard extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
     }
 }

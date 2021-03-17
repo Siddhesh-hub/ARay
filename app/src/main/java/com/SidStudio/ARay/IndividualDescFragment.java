@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.SidStudio.ARay.Databases.SessionManager;
-import com.SidStudio.ARay.Prevalent.Prevalent;
 import com.bumptech.glide.Glide;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,6 +37,8 @@ public class IndividualDescFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+
+    ElegantNumberButton quantityBtn;
 
     String glassAge, glassBrand, glassFeatures, glassFrameType, glassGender, glassId, glassImage, glassMaterial, glassModel, glassName, glassPrice, glassRating, glassType, glassWarranty;
 
@@ -94,7 +95,7 @@ public class IndividualDescFragment extends Fragment {
         TextView warrantyView = view.findViewById(R.id.individual_warranty_view);
         TextView priceView = view.findViewById(R.id.individual_price_view);
         Button addToCartBtn = view.findViewById(R.id.individual_add_to_cart_btn);
-        ElegantNumberButton quantityBtn = view.findViewById(R.id.individual_quantity_btn);
+        quantityBtn = view.findViewById(R.id.individual_quantity_btn);
 
         nameView.setText(glassName);
         warrantyView.setText(glassWarranty);
@@ -129,12 +130,13 @@ public class IndividualDescFragment extends Fragment {
         cartMap.put("glassName", glassName);
         cartMap.put("glassDiscount", "");
         cartMap.put("glassFrameType", glassFrameType);
+        cartMap.put("quantity", quantityBtn.getNumber());
         cartMap.put("glassImage", glassImage);
         cartMap.put("date", saveCurrentDate);
         cartMap.put("glassPrice", glassPrice);
         cartMap.put("time", saveCurrentTime);
 
-        SessionManager sessionManager = new SessionManager(getContext(), SessionManager.SESSION_REMEMBERME);
+        SessionManager sessionManager = new SessionManager(getContext(), SessionManager.SESSION_USERSESSION);
         HashMap<String, String> SessionDetails = sessionManager.getUserDetailsFromSession();
         String userPhoneNumber = SessionDetails.get(SessionManager.KEY_PHONENUMBER);
 

@@ -24,10 +24,16 @@ import com.SidStudio.ARay.HelperClasses.HomeAdapter.CategoriesHelperClass;
 import com.SidStudio.ARay.HelperClasses.HomeAdapter.FeaturedAdapter;
 import com.SidStudio.ARay.HelperClasses.HomeAdapter.FeaturedHelperClass;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     RecyclerView featuredRecycler;
     RecyclerView categoriesRecycler;
@@ -89,7 +95,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         menuIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(drawerLayout.isDrawerVisible(GravityCompat.START))
+                if (drawerLayout.isDrawerVisible(GravityCompat.START))
                     drawerLayout.closeDrawer(GravityCompat.START);
                 else drawerLayout.openDrawer(GravityCompat.START);
             }
@@ -124,14 +130,14 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     public void onBackPressed() {
-        if(drawerLayout.isDrawerVisible(GravityCompat.START))
+        if (drawerLayout.isDrawerVisible(GravityCompat.START))
             drawerLayout.closeDrawer(GravityCompat.START);
         else super.onBackPressed();
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()){
+        switch (menuItem.getItemId()) {
             case R.id.nav_login:
                 Intent intent = new Intent(DashboardActivity.this, LoginStartupScreen.class);
                 startActivity(intent);
@@ -174,11 +180,11 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         categoriesRecycler.setAdapter(categories_adapter);
     }
 
-    public void callLoginStartup(View view){
+    public void callLoginStartup(View view) {
         SessionManager sessionManager = new SessionManager(getApplicationContext(), SessionManager.SESSION_USERSESSION);
-        if (sessionManager.checkLogin()){
+        if (sessionManager.checkLogin()) {
             startActivity(new Intent(getApplicationContext(), SessionDashboard.class));
-        }else {
+        } else {
             startActivity(new Intent(getApplicationContext(), LoginStartupScreen.class));
         }
         finish();
@@ -203,10 +209,42 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     }
 
     // Call to Next screen
-    public void callGlassesList(View view){
+    public void callGlassesList(View view) {
         startActivity(new Intent(getApplicationContext(), GlassesList.class));
         finish();
     }
 
+    public void callCartActivity(View view) {
+        SessionManager sessionManager = new SessionManager(getApplicationContext(), SessionManager.SESSION_USERSESSION);
+        HashMap<String, String> SessionDetails = sessionManager.getUserDetailsFromSession();
+        String userPhoneNumber = SessionDetails.get(SessionManager.KEY_PHONENUMBER);
+
+        DatabaseReference UserRef = FirebaseDatabase.getInstance().getReference().child("Cart List").child("User View");
+
+        if (sessionManager.checkLogin()) {
+            startActivity(new Intent(getApplicationContext(), CartActivity.class));
+            finish();
+//            UserRef.addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    if (snapshot.child(userPhoneNumber).exists()) {
+//                        startActivity(new Intent(getApplicationContext(), CartActivity.class));
+//                    } else {
+//                        Toast.makeText(DashboardActivity.this, "Please Shop first", Toast.LENGTH_SHORT).show();
+//                        startActivity(new Intent(getApplicationContext(), EmptyCartActivity.class));
+//                    }
+//                }
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                }
+//            });
+
+        } else {
+            Toast.makeText(this, "Please, Login first!", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getApplicationContext(), LoginStartupScreen.class));
+        }
+        finish();
+    }
 
 }

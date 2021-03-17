@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.SidStudio.ARay.Prevalent.Prevalent;
+import com.SidStudio.ARay.Databases.SessionManager;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -42,6 +42,7 @@ public class Settings extends AppCompatActivity {
     CircleImageView profileImage;
     CountryCodePicker countryCodePicker;
     TextInputLayout phoneNumber, fullName, shippingAddress;
+    String userPhoneNumber;
 
     private Uri imageUri;
     private String myUrl = "";
@@ -65,6 +66,11 @@ public class Settings extends AppCompatActivity {
         changeProfileBtn = findViewById(R.id.profile_image_change_btn);
 
         userInfoDisplay(profileImage, fullName, countryCodePicker, phoneNumber, shippingAddress);
+
+
+        SessionManager sessionManager = new SessionManager(getApplicationContext(), SessionManager.SESSION_USERSESSION);
+        HashMap<String, String> SessionDetails = sessionManager.getUserDetailsFromSession();
+        userPhoneNumber = SessionDetails.get(SessionManager.KEY_PHONENUMBER);
 
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,7 +129,7 @@ public class Settings extends AppCompatActivity {
         userMap.put("fulName", fullName.getEditText().getText().toString());
         userMap.put("address", shippingAddress.getEditText().getText().toString());
         userMap.put("phoneOrder", _phoneNo);
-        ref.child(Prevalent.currentOnlineUser.getPhoneNo()).updateChildren(userMap);
+        ref.child(userPhoneNumber).updateChildren(userMap);
 
         startActivity(new Intent(Settings.this, DashboardActivity.class));
         Toast.makeText(Settings.this, "Profile Info update successfully.", Toast.LENGTH_SHORT).show();
@@ -151,7 +157,7 @@ public class Settings extends AppCompatActivity {
 
         if (imageUri != null) {
             final StorageReference fileRef = storageProfilePrictureRef
-                    .child(Prevalent.currentOnlineUser.getPhoneNo() + ".jpg");
+                    .child(userPhoneNumber+ ".jpg");
 
             uploadTask = fileRef.putFile(imageUri);
 
@@ -178,7 +184,7 @@ public class Settings extends AppCompatActivity {
                         userMap.put("address", shippingAddress.getEditText().getText().toString());
                         userMap.put("phoneNo", phoneNumber.getEditText().getText().toString());
                         userMap.put("image", myUrl);
-                        ref.child(Prevalent.currentOnlineUser.getPhoneNo()).updateChildren(userMap);
+                        ref.child(userPhoneNumber).updateChildren(userMap);
 
                         progressDialog.dismiss();
 
@@ -197,7 +203,7 @@ public class Settings extends AppCompatActivity {
     }
 
     private void userInfoDisplay(CircleImageView profileImage, TextInputLayout fullName, CountryCodePicker countryCodePicker, TextInputLayout phoneNumber, TextInputLayout shippingAddress) {
-        DatabaseReference UserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(Prevalent.currentOnlineUser.getPhoneNo());
+        DatabaseReference UserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userPhoneNumber);
 
         UserRef.addValueEventListener(new ValueEventListener() {
             @Override

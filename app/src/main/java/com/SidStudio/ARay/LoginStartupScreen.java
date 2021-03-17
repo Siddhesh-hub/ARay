@@ -57,4 +57,9 @@ public class LoginStartupScreen extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+    }
 }

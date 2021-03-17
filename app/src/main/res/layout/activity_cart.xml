@@ -1,9 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CartActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/cart_heading_rel_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/cart_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:src="@drawable/ic_back" />
+
+
+        <TextView
+            android:id="@+id/cart_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cart_back_button"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="@font/brandon_grotesque_black"
+            android:text="Cart"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:textSize="40sp" />
+
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cart_list_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cart_heading_rel_layout"
+        android:layout_above="@+id/cart_bottom_rel_layout">
+
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <LinearLayout
+        android:id="@+id/cart_bottom_rel_layout"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_margin="5dp"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:id="@+id/cart_total_price_txtview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:padding="10dp"
+            android:fontFamily="@font/brandon_grotesque_bold_italic"
+            android:text="Total (incl. GST) "
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/cart_proceed_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Proceed"
+            android:textSize="20sp"
+            android:layout_margin="10dp"
+            android:textColor="@color/white"
+            android:elevation="8dp"
+            android:background="@drawable/button_bg"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

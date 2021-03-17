@@ -44,6 +44,8 @@ public class GlassItemsAdapter extends FirebaseRecyclerAdapter<ModelGlasses, Gla
                                 model.getGlassRating(), model.getGlassType(), model.getGlassWarranty())).addToBackStack(null).commit();
             }
         });
+
+
     }
 
     @NonNull
@@ -55,7 +57,7 @@ public class GlassItemsAdapter extends FirebaseRecyclerAdapter<ModelGlasses, Gla
 
     class myViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView img;
+        ImageView img, remove;
         TextView name, price, frame;
         CardView cardView;
 
@@ -65,6 +67,7 @@ public class GlassItemsAdapter extends FirebaseRecyclerAdapter<ModelGlasses, Gla
             name = (TextView) itemView.findViewById(R.id.view_Name);
             price = (TextView) itemView.findViewById(R.id.view_Price);
             frame = (TextView) itemView.findViewById(R.id.view_Frame);
+            remove = (ImageView) itemView.findViewById(R.id.cart_item_remove_btn);
         }
     }
 }
