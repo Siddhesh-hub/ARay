@@ -18,9 +18,10 @@ public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     public ImageView img, remove;
     public ElegantNumberButton quantity;
-    public TextView name, price, frame, discount;
+    public TextView name, price, frame, discount, frameWidth, prescriptionType, lensType, lensMaterial, prescription;
     public CardView cardView;
     private ItemClickListener itemClickListener;
+
 
     public CartViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -34,6 +35,10 @@ public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         remove = itemView.findViewById(R.id.cart_item_remove_btn);
         //discount =itemView.findViewById(R.id.cart_item_price);
         quantity =itemView.findViewById(R.id.individual_quantity_btn);
+        frameWidth =itemView.findViewById(R.id.cart_item_frame_width_edit);
+        prescriptionType =itemView.findViewById(R.id.cart_item_prescription_edit);
+        lensType =itemView.findViewById(R.id.cart_item_lens_type_edit);
+        lensMaterial =itemView.findViewById(R.id.cart_item_lens_material_edit);
 
     }
 

@@ -31,6 +31,8 @@
     <string name="password_updated_success_message">Your password has been updated.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="instruction2">\u2022 Cash on delivery available on all.</string>
+    <string name="instruction1">\u2022 Free delivery on orders above Rs.1000</string>
 
 
 </resources>

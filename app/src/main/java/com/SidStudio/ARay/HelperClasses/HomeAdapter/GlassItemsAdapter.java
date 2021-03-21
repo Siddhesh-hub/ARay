@@ -38,7 +38,7 @@ public class GlassItemsAdapter extends FirebaseRecyclerAdapter<ModelGlasses, Gla
             public void onClick(View v) {
                 AppCompatActivity appCompatActivity = (AppCompatActivity)v.getContext();
                 appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.wrapper,
-                        new IndividualDescFragment(model.getGlassAge(), model.getGlassBrand(), model.getGlassFeatures(),
+                        new IndividualDescFragment(model.getGlassAge(), model.getGlassBrand(), model.getGlassDiscount(), model.getGlassFeatures(),
                                 model.getGlassFrameType(), model.getGlassGender(), model.getGlassId(), model.getGlassImage(),
                                 model.getGlassMaterial(), model.getGlassModel(), model.getGlassName(), model.getGlassPrice(),
                                 model.getGlassRating(), model.getGlassType(), model.getGlassWarranty())).addToBackStack(null).commit();

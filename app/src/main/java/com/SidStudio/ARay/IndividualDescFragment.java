@@ -40,14 +40,13 @@ public class IndividualDescFragment extends Fragment {
 
     ElegantNumberButton quantityBtn;
 
-    String glassAge, glassBrand, glassFeatures, glassFrameType, glassGender, glassId, glassImage, glassMaterial, glassModel, glassName, glassPrice, glassRating, glassType, glassWarranty;
+    String glassAge, glassBrand, glassDiscount, glassFeatures, glassFrameType, glassGender, glassId, glassImage, glassMaterial, glassModel, glassName, glassPrice, glassRating, glassType, glassWarranty;
 
     public IndividualDescFragment() {
         // Required empty public constructor
     }
 
-    public IndividualDescFragment(String glassAge, String glassBrand, String glassFeatures, String glassFrameType, String glassGender, String glassId, String glassImage, String glassMaterial, String glassModel, String glassName, String glassPrice, String glassRating, String glassType, String glassWarranty) {
-
+    public IndividualDescFragment(String glassAge, String glassBrand, String glassDiscount, String glassFeatures, String glassFrameType, String glassGender, String glassId, String glassImage, String glassMaterial, String glassModel, String glassName, String glassPrice, String glassRating, String glassType, String glassWarranty) {
         this.glassAge = glassAge;
         this.glassBrand = glassBrand;
         this.glassFeatures = glassFeatures;
@@ -62,9 +61,8 @@ public class IndividualDescFragment extends Fragment {
         this.glassRating = glassRating;
         this.glassType = glassType;
         this.glassWarranty = glassWarranty;
-
+        this.glassDiscount = glassDiscount;
     }
-
 
     public static IndividualDescFragment newInstance(String param1, String param2) {
         IndividualDescFragment fragment = new IndividualDescFragment();
@@ -90,78 +88,64 @@ public class IndividualDescFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_individual_desc, container, false);
 
-        ImageView imageView = view.findViewById(R.id.individual_imageview);
-        TextView nameView = view.findViewById(R.id.individual_name_view);
-        TextView warrantyView = view.findViewById(R.id.individual_warranty_view);
-        TextView priceView = view.findViewById(R.id.individual_price_view);
-        Button addToCartBtn = view.findViewById(R.id.individual_add_to_cart_btn);
+        ImageView imageView = view.findViewById(R.id.individual_image_edit);
+        TextView nameView = view.findViewById(R.id.individual_name_edit);
+        TextView warrantyView = view.findViewById(R.id.individual_warranty_edit);
+        TextView priceView = view.findViewById(R.id.individual_price_edit);
+        TextView brandView = view.findViewById(R.id.individual_brand_name_edit);
+        TextView discountView = view.findViewById(R.id.individual_discount_edit);
+        TextView frameTypeView = view.findViewById(R.id.individual_frame_type_edit);
+        TextView frameMaterialView = view.findViewById(R.id.individual_frame_material_edit);
+        TextView featureView = view.findViewById(R.id.individual_features_edit);
+        Button proceedToDetailsBtn = view.findViewById(R.id.individual_add_to_cart_btn);
+        Button tryAR = view.findViewById(R.id.individual_try_ar_btn);
         quantityBtn = view.findViewById(R.id.individual_quantity_btn);
 
         nameView.setText(glassName);
-        warrantyView.setText(glassWarranty);
+        brandView.setText(glassBrand);
+        discountView.setText(glassDiscount+"off");
         priceView.setText(glassPrice);
+        frameTypeView.setText(glassFrameType);
+        frameMaterialView.setText(glassMaterial);
+        warrantyView.setText(glassWarranty);
+        featureView.setText(glassFeatures);
         Glide.with(getContext()).load(glassImage).into(imageView);
 
-        addToCartBtn.setOnClickListener(new View.OnClickListener() {
+        proceedToDetailsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addingToCartList();
+                getPurchaseDetails();
+            }
+        });
+
+        tryAR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callARActivity();
             }
         });
 
         return view;
     }
 
-    private void addingToCartList() {
-        String saveCurrentTime, saveCurrentDate;
-
-        Calendar callForDate = Calendar.getInstance();
-
-        SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
-        saveCurrentDate = currentDate.format(callForDate.getTime());
-
-        SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
-        saveCurrentTime = currentTime.format(callForDate.getTime());
-
-        final DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
-
-        final HashMap<String, Object> cartMap =  new HashMap<>();
-        cartMap.put("glassId", glassId);
-        cartMap.put("glassName", glassName);
-        cartMap.put("glassDiscount", "");
-        cartMap.put("glassFrameType", glassFrameType);
-        cartMap.put("quantity", quantityBtn.getNumber());
-        cartMap.put("glassImage", glassImage);
-        cartMap.put("date", saveCurrentDate);
-        cartMap.put("glassPrice", glassPrice);
-        cartMap.put("time", saveCurrentTime);
-
-        SessionManager sessionManager = new SessionManager(getContext(), SessionManager.SESSION_USERSESSION);
-        HashMap<String, String> SessionDetails = sessionManager.getUserDetailsFromSession();
-        String userPhoneNumber = SessionDetails.get(SessionManager.KEY_PHONENUMBER);
-
-        cartListRef.child("User View").child(userPhoneNumber)
-                .child("Products").child(glassId)
-                .updateChildren(cartMap)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            cartListRef.child("Admin View").child(userPhoneNumber)
-                                    .child("Products").child(glassId)
-                                    .updateChildren(cartMap)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            Toast.makeText(getContext(), "Added to cart list.", Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(getContext(), GlassesList.class));
-                                        }
-                                    });
-                        }
-                    }
-                });
-
+    private void getPurchaseDetails() {
+        Intent intent = new Intent(getContext(), GetPurchseDetailsActivity.class);
+        intent.putExtra("Model Name", glassModel);
+        intent.putExtra("glassId", glassId);
+        intent.putExtra("glassName", glassName);
+        intent.putExtra("glassDiscount", glassDiscount);
+        intent.putExtra("glassFrameType", glassFrameType);
+        intent.putExtra("quantity", "1");
+        intent.putExtra("glassImage", glassImage);
+        intent.putExtra("glassPrice", glassPrice);
+        startActivity(intent);
     }
+
+    private void callARActivity() {
+        Intent intent = new Intent(getContext(), ARscreen.class);
+        startActivity(intent);
+    }
+
 
     public void onBackPressed(){
         AppCompatActivity appCompatActivity = (AppCompatActivity)getContext();

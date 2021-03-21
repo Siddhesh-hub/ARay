@@ -16,11 +16,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import com.SidStudio.ARay.Databases.SessionManager;
 import com.airbnb.lottie.LottieAnimationView;
 
 public class SplashScreen extends AppCompatActivity {
 
-    ImageView logo,appName,splashImg;
+    ImageView logo, appName, splashImg;
     LottieAnimationView lottieAnimationView;
     private static final int NUM_PAGES = 3;
     private ViewPager viewPager;
@@ -34,7 +35,7 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.splash_screen);
 
         logo = findViewById(R.id.splash_logo);
@@ -55,25 +56,33 @@ public class SplashScreen extends AppCompatActivity {
         lottieAnimationView.animate().translationY(2400).setDuration(1000).setStartDelay(4000);
 
 
-        new Handler().postDelayed(new Runnable(){
+        new Handler().postDelayed(new Runnable() {
 
             @Override
             public void run() {
                 mSharedPref = getSharedPreferences("SharedPref", MODE_PRIVATE);
                 boolean isFirstTime = mSharedPref.getBoolean("firstTime", true);
 
-                if (isFirstTime){
+                if (isFirstTime) {
                     SharedPreferences.Editor editor = mSharedPref.edit();
                     editor.putBoolean("firstTime", false);
                     editor.commit();
-                }
-                else {
-                    Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
-                    startActivity(intent);
-                    finish();
+                } else {
+                    SessionManager sessionManager = new SessionManager(getApplicationContext(), SessionManager.SESSION_USERSESSION);
+                    if (sessionManager.checkLogin()) {
+                        Intent intent = new Intent(SplashScreen.this, DashboardActivity.class);
+                        startActivity(intent);
+                        finish();
+
+                    } else {
+                        Intent intent = new Intent(SplashScreen.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+
                 }
             }
-        },SPLASH_TIME_OUT);
+        }, SPLASH_TIME_OUT);
     }
 
     private class screenSlidePagerAdapter extends FragmentStatePagerAdapter {
@@ -84,7 +93,7 @@ public class SplashScreen extends AppCompatActivity {
         @NonNull
         @Override
         public Fragment getItem(int position) {
-            switch (position){
+            switch (position) {
                 case 0:
                     OnBoardingFragment1 tab1 = new OnBoardingFragment1();
                     return tab1;

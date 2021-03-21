@@ -3,6 +3,7 @@ package com.SidStudio.ARay;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -52,56 +53,35 @@ public class ARscreen extends AppCompatActivity {
         //progressBar = findViewById(R.id.fragment_progress_bar);
         //downloadBtn = findViewById(R.id.modelDownloadBtn);
 
-        FirebaseApp.initializeApp(this);
-        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-        StorageReference storageReference = firebaseStorage.getReference();
-        StorageReference modelRef = storageReference.child("Glass_3D_models/Cat_Reading_Glass1.sfb");
 
-        long MAXBYTES = 1024*1024;
-
-
+        String modelName = "catframe_reading_glasses";
+                //getIntent().getStringExtra("Model Name");
 
         CustomArFragment customArFragment = (CustomArFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.arFragment);
 
-//        File mFile = null;
-//        try {
-//            mFile = File.createTempFile("model","glb");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-//        RenderableSource renderableSource = RenderableSource
-//                .builder()
-//                .setSource(this,
-//                        Uri.parse(file.getPath()), RenderableSource.SourceType.GLB)
-//                .setRecenterMode(RenderableSource.RecenterMode.ROOT)
-//                .build();
-//
-//        ModelRenderable
-//                .builder()
-//                .setSource(this, )
-//                .build()
-//                .thenAccept(renderable -> {
-//                    modelRenderable = renderable;
-//                    modelRenderable.setShadowReceiver(false);
-//                    modelRenderable.setShadowCaster(false);
-//                });
-
-        /*Texture
-                .builder()
-                .setSource(this, R.raw.temp_glasses)
-                .build()
-                .thenAccept(texture -> {
-                    mTexture = texture;
-                });*/
-
         customArFragment.getArSceneView().setCameraStreamRenderPriority(Renderable.RENDER_PRIORITY_FIRST);
+
+        String _source = "R.raw."+ modelName;
+        Resources res = getApplicationContext().getResources();
+        int _modelId = res.getIdentifier(modelName, "raw", getApplicationContext().getPackageName());
+        makeText(this, _source, LENGTH_SHORT).show();
+        ModelRenderable
+                .builder()
+                .setSource(this, _modelId)
+                .build()
+                .thenAccept(modelRenderable ->{
+                    makeText(this, "Model built", LENGTH_SHORT).show();
+                    this.modelRenderable = modelRenderable;
+                    this.modelRenderable.setShadowCaster(false);
+                    this.modelRenderable.setShadowReceiver(false);
+                });
+
 
         customArFragment.getArSceneView().getScene().addOnUpdateListener(frameTime -> {
 
             if(modelRenderable == null) {
-                makeText(this, "Renderable null", LENGTH_SHORT).show();
+                makeText(this, "null values", LENGTH_SHORT).show();
                 return;
             }
 //
@@ -124,43 +104,6 @@ public class ARscreen extends AppCompatActivity {
 
             }
         });
-
-//        modelRef.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-//            @Override
-//            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-//                buildModel(finalFile);
-//            }
-//        });
-
-//        findViewById(R.id.modelDownloadBtn)
-//                .setOnClickListener(v -> {
-//                    progressBar.setVisibility(View.VISIBLE);
-//
-//                    try {
-//                        File file = File.createTempFile("model", "glb");
-//                        modelRef.getFile(file).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-//                            @Override
-//                            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-//                                buildModel(file);
-//                            }
-//                        });
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                });
-
-
-
-
-
-
-
-//        customArFragment.setOnTapArPlaneListener((hitResult, plane, motionEvent) -> {
-//            AnchorNode anchorNode = new AnchorNode(hitResult.createAnchor());
-//            anchorNode.setRenderable(renderable);
-//            customArFragment.getArSceneView().getScene().addChild(anchorNode);
-//        });
     }
 
     private void buildModel(File file) {

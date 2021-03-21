@@ -1,15 +1,16 @@
 package com.SidStudio.ARay.Databases;
 
 public class ModelGlasses {
-    String glassAge, glassBrand, glassFeatures, glassFrameType, glassGender, glassId, glassImage, glassMaterial, glassModel, glassName, glassPrice, glassRating, glassType, glassWarranty;
+    String glassAge, glassBrand, glassDiscount, glassFeatures, glassFrameType, glassGender, glassId, glassImage, glassMaterial, glassModel, glassName, glassPrice, glassRating, glassType, glassWarranty;
 
     public ModelGlasses() {
 
     }
 
-    public ModelGlasses(String glassAge, String glassBrand, String glassFeatures, String glassFrameType, String glassGender, String glassId, String glassImage, String glassMaterial, String glassModel, String glassName, String glassPrice, String glassRating, String glassType, String glassWarranty) {
+    public ModelGlasses(String glassAge, String glassBrand, String glassDiscount, String glassFeatures, String glassFrameType, String glassGender, String glassId, String glassImage, String glassMaterial, String glassModel, String glassName, String glassPrice, String glassRating, String glassType, String glassWarranty) {
         this.glassAge = glassAge;
         this.glassBrand = glassBrand;
+        this.glassDiscount = glassDiscount;
         this.glassFeatures = glassFeatures;
         this.glassFrameType = glassFrameType;
         this.glassGender = glassGender;
@@ -24,11 +25,20 @@ public class ModelGlasses {
         this.glassWarranty = glassWarranty;
     }
 
+    public String getGlassDiscount() {
+        return glassDiscount;
+    }
+
+    public void setGlassDiscount(String glassDiscount) {
+        this.glassDiscount = glassDiscount;
+    }
+
     @Override
     public String toString() {
         return "ModelGlasses{" +
                 "glassAge='" + glassAge + '\'' +
                 ", glassBrand='" + glassBrand + '\'' +
+                ", glassDiscount='" + glassDiscount + '\'' +
                 ", glassFeatures='" + glassFeatures + '\'' +
                 ", glassFrameType='" + glassFrameType + '\'' +
                 ", glassGender='" + glassGender + '\'' +

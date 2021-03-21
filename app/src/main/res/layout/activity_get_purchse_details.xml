@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".GetPurchseDetailsActivity">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_back" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/details_image"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/details_width_txtview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/details_image"
+                android:text="Select a frame width" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:id="@+id/details_width_radiogroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/details_width_txtview"
+                    android:layout_margin="30dp"
+                    android:orientation="horizontal">
+
+
+                    <RadioButton
+                        android:id="@+id/frame_width_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="Small"
+                        android:textColor="@color/black" />
+
+                    <RadioButton
+                        android:id="@+id/frame_width_medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="Medium"
+                        android:textColor="@color/black" />
+
+                    <RadioButton
+                        android:id="@+id/frame_width_large"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="Large"
+                        android:textColor="@color/black" />
+                </RadioGroup>
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/details_prescription_txtview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/details_width_radiogroup"
+                android:text="Select a Prescription type" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:id="@+id/details_prescription_radiogroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/details_prescription_txtview"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+
+                    <RadioButton
+                        android:id="@+id/prescription_single_vision"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:text="Single Vision"
+                        android:onClick="getPrescription"/>
+
+                    <RadioButton
+                        android:id="@+id/prescription_progressives"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:onClick="getPrescription"
+                        android:text="Progressives" />
+
+                    <RadioButton
+                        android:id="@+id/prescription_non_progressives"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:text="Non-Prescription"
+                        android:onClick="doNotGetPrescription"
+                        android:textColor="@color/black" />
+
+                    <RadioButton
+                        android:id="@+id/prescription_readers"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:onClick="doNotGetPrescription"
+                        android:text="Readers" />
+                </RadioGroup>
+            </LinearLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/detail_prescription_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/details_prescription_radiogroup"
+                android:hint="Enter Prescription"
+                android:textColorHint="@color/black"
+                app:boxStrokeColor="@color/black"
+                app:boxStrokeWidthFocused="2dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/black"
+                android:visibility="gone"
+                app:hintTextColor="@color/black"
+                app:startIconTint="@color/black">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/details_prescription_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:fontFamily="@font/brandon_grotesque_light"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textCursorDrawable="@null" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/details_lens_txtview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/detail_prescription_layout"
+                android:text="Select a lens type" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:id="@+id/details_lens_radiogroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/details_lens_txtview"
+                    android:orientation="horizontal">
+
+
+                    <RadioButton
+                        android:id="@+id/lens_classic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:padding="5dp"
+                        android:text="Classic"
+                        android:textColor="@color/black" />
+
+                    <RadioButton
+                        android:id="@+id/lens_blue_light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:padding="5dp"
+                        android:text="Blue-light filtering" />
+
+                    <RadioButton
+                        android:id="@+id/lens_light_responsives"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:text="Light-responsive" />
+                </RadioGroup>
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/details_material_txtview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/details_lens_radiogroup"
+                android:text="Select a lens material" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:id="@+id/details_material_radiogroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_below="@id/details_material_txtview"
+                    android:layout_margin="10dp">
+
+
+                    <RadioButton
+                        android:id="@+id/material_glass"
+                        android:layout_width="100dp"
+                        android:layout_height="50dp"
+                        android:text="Glass" />
+
+                    <RadioButton
+                        android:id="@+id/material_fiber"
+                        android:layout_width="100dp"
+                        android:layout_height="50dp"
+                        android:text="Fiber" />
+
+                    <RadioButton
+                        android:id="@+id/material_polycarbonate"
+                        android:layout_width="300dp"
+                        android:layout_height="50dp"
+                        android:text="Polycarbonate" />
+                </RadioGroup>
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/addToCart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:background="@color/black"
+                android:text="Add to cart"
+                android:textAllCaps="true"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/white"
+                android:elevation="10dp" />
+        </LinearLayout>
+    </ScrollView>
+</FrameLayout>
