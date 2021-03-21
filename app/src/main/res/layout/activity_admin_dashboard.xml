@@ -123,7 +123,6 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:onClick="callAddGlasses"
                         android:layout_margin="20dp">
 
 
@@ -171,7 +170,6 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:onClick="callUpdateGlasses"
                         android:layout_margin="20dp">
 
 
@@ -219,7 +217,6 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:onClick="callDeleteGlasses"
                         android:layout_margin="20dp">
 
 
@@ -263,7 +260,33 @@
                                 android:textSize="16dp" />
                         </RelativeLayout>
                     </androidx.cardview.widget.CardView>
+                    <Button
+                        android:id="@+id/check_orders_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        android:text="Check New Orders"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:elevation="8dp"
+                        android:textSize="20sp"
+                        android:layout_marginTop="50dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        />
 
+                    <Button
+                        android:id="@+id/admin_logout_btn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorPrimary"
+                        android:text="Admin Logout"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_marginLeft="30dp"
+                        />
                 </LinearLayout>
 
 

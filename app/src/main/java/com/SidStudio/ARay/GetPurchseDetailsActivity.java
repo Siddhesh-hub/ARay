@@ -18,8 +18,11 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -34,6 +37,8 @@ public class GetPurchseDetailsActivity extends AppCompatActivity {
     Button addToCart;
     //Previous data hooks
     String modelName, glassId, glassName, glassDiscount, glassFrameType, quantity, glassImage, glassPrice;
+    String state = "Normal";
+    String userPhoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +73,7 @@ public class GetPurchseDetailsActivity extends AppCompatActivity {
     }
 
 
+
     private void addingToCartList() {
 
 
@@ -81,17 +87,17 @@ public class GetPurchseDetailsActivity extends AppCompatActivity {
         SimpleDateFormat currentTime = new SimpleDateFormat("HH:mm:ss a");
         saveCurrentTime = currentTime.format(callForDate.getTime());
 
-            selectedWidth = findViewById(widthRadioGroup.getCheckedRadioButtonId());
-            String _width = selectedWidth.getText().toString();
+        selectedWidth = findViewById(widthRadioGroup.getCheckedRadioButtonId());
+        String _width = selectedWidth.getText().toString();
 
-            selectedPrescription = findViewById(prescriptionRadioGroup.getCheckedRadioButtonId());
-            String _prescriptionType = selectedPrescription.getText().toString();
+        selectedPrescription = findViewById(prescriptionRadioGroup.getCheckedRadioButtonId());
+        String _prescriptionType = selectedPrescription.getText().toString();
 
-            selectedLensMaterial = findViewById(lensMaterialRadioGroup.getCheckedRadioButtonId());
-            String _lensMaterial = selectedLensMaterial.getText().toString();
+        selectedLensMaterial = findViewById(lensMaterialRadioGroup.getCheckedRadioButtonId());
+        String _lensMaterial = selectedLensMaterial.getText().toString();
 
-            selectedLensType = findViewById(lensTypeRadioGroup.getCheckedRadioButtonId());
-            String _lensType = selectedLensType.getText().toString();
+        selectedLensType = findViewById(lensTypeRadioGroup.getCheckedRadioButtonId());
+        String _lensType = selectedLensType.getText().toString();
 
         String _prescriptionGiven = lens_prescription.getEditText().getText().toString();
 
@@ -115,7 +121,7 @@ public class GetPurchseDetailsActivity extends AppCompatActivity {
 
         SessionManager sessionManager = new SessionManager(getApplicationContext(), SessionManager.SESSION_USERSESSION);
         HashMap<String, String> SessionDetails = sessionManager.getUserDetailsFromSession();
-        String userPhoneNumber = SessionDetails.get(SessionManager.KEY_PHONENUMBER);
+        userPhoneNumber = SessionDetails.get(SessionManager.KEY_PHONENUMBER);
 
         cartListRef.child("User View").child(userPhoneNumber)
                 .child("Products").child(glassId)
@@ -146,4 +152,6 @@ public class GetPurchseDetailsActivity extends AppCompatActivity {
     public void doNotGetPrescription(View view) {
         lens_prescription.setVisibility(View.GONE);
     }
+
+
 }

@@ -9,10 +9,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.SidStudio.ARay.DashboardActivity;
+import com.SidStudio.ARay.Databases.SessionManager;
 import com.SidStudio.ARay.LoginActivity;
 import com.SidStudio.ARay.R;
 import com.google.android.material.navigation.NavigationView;
@@ -27,7 +30,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
     ImageView menuIcon;
     LinearLayout contentView;
-
+    private Button LogoutButton, CheckOrdersButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,28 @@ public class AdminDashboardActivity extends AppCompatActivity {
         menuIcon = findViewById(R.id.nav_menu_icon);
         drawerLayout = findViewById(R.id.drawer_layout);
         contentView = findViewById(R.id.content);
+        LogoutButton = findViewById(R.id.admin_logout_btn);
+        CheckOrdersButton = findViewById(R.id.check_orders_btn);
+
+        LogoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SessionManager sessionManager = new SessionManager(getApplicationContext(), SessionManager.SESSION_USERSESSION);
+                sessionManager.logoutUserFromSession();
+                Intent intent = new Intent(AdminDashboardActivity.this, DashboardActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        CheckOrdersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminDashboardActivity.this, AdminNewOrdersActivity.class);
+                startActivity(intent);
+            }
+        });
 
         navigationDrawer();
 

@@ -5,13 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.SidStudio.ARay.DashboardActivity;
 import com.SidStudio.ARay.R;
 
 public class AdminAddItem extends AppCompatActivity {
 
     LinearLayout eyeglasses, sunglasses, readingglasses, powerglasses;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +25,7 @@ public class AdminAddItem extends AppCompatActivity {
         sunglasses = findViewById(R.id.add_sunglasses);
         readingglasses = findViewById(R.id.add_readingglasses);
         powerglasses = findViewById(R.id.add_powerglasses);
+
 
         eyeglasses.setOnClickListener(new View.OnClickListener() {
             @Override

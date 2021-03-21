@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginRight="20dp"
+    android:background="@drawable/card_bg"
+    android:elevation="5dp">
+
+    <ImageView
+        android:id="@+id/cart_item_remove_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_margin="5dp"
+        android:src="@drawable/ic_close_24" />
+
+    <RelativeLayout
+        android:id="@+id/design_lin_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/order_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/brandon_grotesque_black"
+            android:gravity="center"
+            android:text="User name"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/order_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/order_user_name"
+            android:fontFamily="@font/brandon_grotesque_bold_italic"
+            android:gravity="center"
+            android:text="Phone Number"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/lin_lay_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/order_phone_number"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/brandon_grotesque_light"
+                android:gravity="center"
+                android:text="Total Price" />
+
+            <TextView
+                android:id="@+id/order_total_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/brandon_grotesque_black"
+                android:gravity="center"
+                android:text="ARay" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lin_lay_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lin_lay_1"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/brandon_grotesque_light"
+                android:gravity="center"
+                android:text="Date" />
+
+            <TextView
+                android:id="@+id/order_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/brandon_grotesque_black"
+                android:gravity="center"
+                android:text="Date" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lin_lay_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lin_lay_2"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/brandon_grotesque_light"
+                android:gravity="center"
+                android:text="Order Time" />
+
+            <TextView
+                android:id="@+id/order_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/brandon_grotesque_black"
+                android:gravity="center"
+                android:text="order time" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lin_lay_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lin_lay_3"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/brandon_grotesque_light"
+                android:gravity="center"
+                android:text="Shipping Address" />
+
+            <TextView
+                android:id="@+id/order_shipping_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/brandon_grotesque_black"
+                android:gravity="center"
+                android:text="address" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lin_lay_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lin_lay_4"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/brandon_grotesque_light"
+                android:gravity="center"
+                android:text="Pin Code" />
+
+            <TextView
+                android:id="@+id/order_pin_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/brandon_grotesque_black"
+                android:gravity="center"
+                android:text="pincode" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/line_txt_view"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_below="@id/lin_lay_5"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/grey" />
+
+        <Button
+            android:id="@+id/show_ordered_products"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/line_txt_view"
+            android:background="@color/colorPrimary"
+            android:textStyle="bold"
+            android:elevation="8dp"
+            android:text="View Ordered Products"/>
+
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

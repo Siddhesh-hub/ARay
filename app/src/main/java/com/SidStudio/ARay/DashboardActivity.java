@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.SidStudio.ARay.Databases.SessionManager;
@@ -40,6 +41,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     RecyclerView.Adapter featured_adapter;
     RecyclerView.Adapter categories_adapter;
 
+    RelativeLayout searchBtn;
 
     //Drawer menu
     DrawerLayout drawerLayout;
@@ -65,7 +67,15 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         sunGlasses = findViewById(R.id.dashboard_sunglasses_imgview);
         readingGlasses = findViewById(R.id.dashboard_readingglasses_imgview);
         powerGlasses = findViewById(R.id.dashboard_powerglasses_imgview);
+        searchBtn = findViewById(R.id.search_glass);
 
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DashboardActivity.this, SearchProductsActivity.class);
+                startActivity(intent);
+            }
+        });
         //Menu hooks
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
@@ -143,9 +153,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 startActivity(intent);
                 break;
             case R.id.nav_setting:
-                //intent = new Intent(DashboardActivity.this, Settings.class);
-                //startActivity(intent);
-                Toast.makeText(this, "Disabled for further development", Toast.LENGTH_SHORT).show();
+                intent = new Intent(DashboardActivity.this, Settings.class);
+                startActivity(intent);
                 break;
             case R.id.nav_home:
                 break;
@@ -155,8 +164,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             case R.id.nav_orders:
                 Toast.makeText(this, "Orders", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.nav_profile:
-                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+            case R.id.nav_search:
+                intent = new Intent(DashboardActivity.this, SearchProductsActivity.class);
+                startActivity(intent);
                 break;
             case R.id.nav_rate_us:
                 Toast.makeText(this, "Rate us", Toast.LENGTH_SHORT).show();

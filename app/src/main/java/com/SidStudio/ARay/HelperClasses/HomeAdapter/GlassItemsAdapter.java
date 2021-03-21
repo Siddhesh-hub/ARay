@@ -18,6 +18,8 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
+import java.text.BreakIterator;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class GlassItemsAdapter extends FirebaseRecyclerAdapter<ModelGlasses, GlassItemsAdapter.myViewHolder> {
@@ -55,11 +57,11 @@ public class GlassItemsAdapter extends FirebaseRecyclerAdapter<ModelGlasses, Gla
         return new myViewHolder(view);
     }
 
-    class myViewHolder extends RecyclerView.ViewHolder{
+    public static class myViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView img, remove;
-        TextView name, price, frame;
-        CardView cardView;
+        public ImageView img, remove;
+        public TextView name, price, frame;
+        public CardView cardView;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);

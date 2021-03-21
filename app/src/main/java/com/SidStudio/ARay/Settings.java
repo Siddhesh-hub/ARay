@@ -72,6 +72,7 @@ public class Settings extends AppCompatActivity {
         HashMap<String, String> SessionDetails = sessionManager.getUserDetailsFromSession();
         userPhoneNumber = SessionDetails.get(SessionManager.KEY_PHONENUMBER);
 
+
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -203,7 +204,10 @@ public class Settings extends AppCompatActivity {
     }
 
     private void userInfoDisplay(CircleImageView profileImage, TextInputLayout fullName, CountryCodePicker countryCodePicker, TextInputLayout phoneNumber, TextInputLayout shippingAddress) {
-        DatabaseReference UserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userPhoneNumber);
+        SessionManager sessionManager = new SessionManager(getApplicationContext(), SessionManager.SESSION_USERSESSION);
+        HashMap<String, String> SessionDetails = sessionManager.getUserDetailsFromSession();
+        String userPhoneNo = SessionDetails.get(SessionManager.KEY_PHONENUMBER);
+        DatabaseReference UserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userPhoneNo);
 
         UserRef.addValueEventListener(new ValueEventListener() {
             @Override

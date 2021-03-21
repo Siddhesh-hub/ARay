@@ -21,8 +21,11 @@ import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,6 +40,8 @@ public class IndividualDescFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+    String state = "Normal";
+    String userPhoneNumber;
 
     ElegantNumberButton quantityBtn;
 
@@ -114,7 +119,15 @@ public class IndividualDescFragment extends Fragment {
         proceedToDetailsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getPurchaseDetails();
+
+                if (state.equals("Order Placed") || state.equals("Order Shipped")){
+                    Toast.makeText(getContext(), "You can purchase more products once your order is shipped or confirmed.", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    getPurchaseDetails();
+                }
+
             }
         });
 
@@ -124,10 +137,18 @@ public class IndividualDescFragment extends Fragment {
                 callARActivity();
             }
         });
-
+        SessionManager sessionManager = new SessionManager(getContext(), SessionManager.SESSION_USERSESSION);
+        HashMap<String, String> SessionDetails = sessionManager.getUserDetailsFromSession();
+        userPhoneNumber = SessionDetails.get(SessionManager.KEY_PHONENUMBER);
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        CheckOrderState();
+    }
     private void getPurchaseDetails() {
         Intent intent = new Intent(getContext(), GetPurchseDetailsActivity.class);
         intent.putExtra("Model Name", glassModel);
@@ -147,8 +168,34 @@ public class IndividualDescFragment extends Fragment {
     }
 
 
-    public void onBackPressed(){
+    public void goBack(View view){
         AppCompatActivity appCompatActivity = (AppCompatActivity)getContext();
         appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.wrapper, new recFragment()).addToBackStack(null).commit();
+    }
+
+    private void CheckOrderState() {
+        DatabaseReference orderRef;
+        orderRef = FirebaseDatabase.getInstance().getReference()
+                .child("Orders")
+                .child(userPhoneNumber);
+
+        orderRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    String shippingState = snapshot.child("progress").getValue().toString();
+                    if (shippingState.equals("Shipped")){
+                        state = "Order Shipped";
+                    }else if (shippingState.equals("Not Shipped")){
+                        state = "Order Placed";
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
