@@ -16,7 +16,9 @@ import android.widget.Toast;
 
 import com.SidStudio.ARay.DashboardActivity;
 import com.SidStudio.ARay.Databases.SessionManager;
+import com.SidStudio.ARay.GlassesList;
 import com.SidStudio.ARay.LoginActivity;
+import com.SidStudio.ARay.LoginStartupScreen;
 import com.SidStudio.ARay.R;
 import com.google.android.material.navigation.NavigationView;
 
@@ -28,7 +30,7 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
     static final float END_SCALE = 0.7f;
 
-    ImageView menuIcon;
+    ImageView menuIcon, addGlass, updateGlass, deleteGlass;
     LinearLayout contentView;
     private Button LogoutButton, CheckOrdersButton;
 
@@ -44,13 +46,16 @@ public class AdminDashboardActivity extends AppCompatActivity {
         contentView = findViewById(R.id.content);
         LogoutButton = findViewById(R.id.admin_logout_btn);
         CheckOrdersButton = findViewById(R.id.check_orders_btn);
+        addGlass = findViewById(R.id.add_image);
+        updateGlass = findViewById(R.id.update_image);
+        deleteGlass = findViewById(R.id.delete_image);
 
         LogoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SessionManager sessionManager = new SessionManager(getApplicationContext(), SessionManager.SESSION_USERSESSION);
                 sessionManager.logoutUserFromSession();
-                Intent intent = new Intent(AdminDashboardActivity.this, DashboardActivity.class);
+                Intent intent = new Intent(AdminDashboardActivity.this, LoginStartupScreen.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -65,6 +70,26 @@ public class AdminDashboardActivity extends AppCompatActivity {
             }
         });
 
+        addGlass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callAddGlasses();
+            }
+        });
+
+        updateGlass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callUpdateGlasses();
+            }
+        });
+
+        deleteGlass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                callDeleteGlasses();
+            }
+        });
         navigationDrawer();
 
     }
@@ -92,23 +117,17 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
     private boolean onNavigationItemSelected(MenuItem menuItem) {
         switch (menuItem.getItemId()){
-            case R.id.nav_login:
-                Intent intent = new Intent(AdminDashboardActivity.this, LoginActivity.class);
-                startActivity(intent);
-                break;
             case R.id.nav_home:
                 break;
             case R.id.nav_logout:
-                Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+                SessionManager sessionManager = new SessionManager(getApplicationContext(), SessionManager.SESSION_USERSESSION);
+                sessionManager.logoutUserFromSession();
+                Intent intent =new Intent(getApplicationContext(), LoginStartupScreen.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                 break;
             case R.id.nav_orders:
                 Toast.makeText(this, "Orders", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.nav_profile:
-                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.nav_rate_us:
-                Toast.makeText(this, "Rate us", Toast.LENGTH_SHORT).show();
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -146,18 +165,21 @@ public class AdminDashboardActivity extends AppCompatActivity {
         else super.onBackPressed();
     }
 
-    public void callAddGlasses(View view){
-        startActivity(new Intent(getApplicationContext(), AdminAddItem.class));
+    public void callAddGlasses(){
+        Intent intent = new Intent(getApplicationContext(), AdminAddItem.class);
+        startActivity(intent);
         finish();
     }
 
-    public void callUpdateGlasses(View view){
-        //startActivity(new Intent(getApplicationContext(), AdminAddItem.class));
+    public void callUpdateGlasses(){
+        Intent intent = new Intent(getApplicationContext(), GlassesList.class);
+        intent.putExtra("Admin", "Admin");
+        startActivity(intent);
         finish();
     }
 
 
-    public void callDeleteGlasses(View view){
+    public void callDeleteGlasses(){
         //startActivity(new Intent(getApplicationContext(), AdminAddItem.class));
         finish();
     }

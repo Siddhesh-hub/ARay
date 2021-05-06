@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SearchProductsActivity"></activity>
+        <activity android:name=".PaymentActivity"></activity>
+        <activity android:name=".SearchProductsActivity" />
         <activity android:name=".Admin.AdminOrderedProductDetailsActivity" />
         <activity android:name=".Admin.AdminNewOrdersActivity" />
         <activity android:name=".GetPurchseDetailsActivity" />
@@ -76,13 +77,15 @@
             android:name=".LoginStartupScreen"
             android:parentActivityName=".DashboardActivity" />
         <activity android:name=".DashboardActivity">
+
+        </activity>
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SplashScreen" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" /> <!-- optional (needed if default theme has no action bar) -->

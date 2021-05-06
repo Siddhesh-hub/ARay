@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.SidStudio.ARay.DashboardActivity;
 import com.SidStudio.ARay.R;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -237,7 +238,7 @@ public class AdminAddProduct extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
 
-                            Intent intent = new Intent(AdminAddProduct.this, AdminAddItem.class);
+                            Intent intent = new Intent(AdminAddProduct.this, DashboardActivity.class);
                             startActivity(intent);
                             progressBar.setVisibility(View.GONE);
                             Toast.makeText(AdminAddProduct.this, "Glass is added successfully.", Toast.LENGTH_SHORT).show();

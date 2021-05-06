@@ -21,6 +21,8 @@ public class recFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
 
+    public String isAdmin;
+
     private String mParam1;
     private String mParam2;
 
@@ -53,6 +55,9 @@ public class recFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_rec, container, false);
 

@@ -54,8 +54,7 @@ public class ARscreen extends AppCompatActivity {
         //downloadBtn = findViewById(R.id.modelDownloadBtn);
 
 
-        String modelName = "catframe_reading_glasses";
-                //getIntent().getStringExtra("Model Name");
+        String modelName = getIntent().getStringExtra("Model Name");
 
         CustomArFragment customArFragment = (CustomArFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.arFragment);

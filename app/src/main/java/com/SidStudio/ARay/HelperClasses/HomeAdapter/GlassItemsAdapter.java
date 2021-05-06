@@ -11,7 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.SidStudio.ARay.Admin.AdminIndividualDecFragment;
 import com.SidStudio.ARay.Databases.ModelGlasses;
+import com.SidStudio.ARay.GlassesList;
 import com.SidStudio.ARay.IndividualDescFragment;
 import com.SidStudio.ARay.R;
 import com.bumptech.glide.Glide;
@@ -22,7 +24,11 @@ import java.text.BreakIterator;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.google.android.material.internal.ContextUtils.getActivity;
+
 public class GlassItemsAdapter extends FirebaseRecyclerAdapter<ModelGlasses, GlassItemsAdapter.myViewHolder> {
+
+    private String isAdmin;
 
     public GlassItemsAdapter(@NonNull FirebaseRecyclerOptions<ModelGlasses> options) {
         super(options);
@@ -38,14 +44,25 @@ public class GlassItemsAdapter extends FirebaseRecyclerAdapter<ModelGlasses, Gla
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppCompatActivity appCompatActivity = (AppCompatActivity)v.getContext();
-                appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.wrapper,
-                        new IndividualDescFragment(model.getGlassAge(), model.getGlassBrand(), model.getGlassDiscount(), model.getGlassFeatures(),
-                                model.getGlassFrameType(), model.getGlassGender(), model.getGlassId(), model.getGlassImage(),
-                                model.getGlassMaterial(), model.getGlassModel(), model.getGlassName(), model.getGlassPrice(),
-                                model.getGlassRating(), model.getGlassType(), model.getGlassWarranty())).addToBackStack(null).commit();
-            }
+                    AppCompatActivity appCompatActivity = (AppCompatActivity) v.getContext();
+                    appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.wrapper,
+                            new IndividualDescFragment(model.getGlassAge(), model.getGlassBrand(), model.getGlassDiscount(), model.getGlassFeatures(),
+                                    model.getGlassFrameType(), model.getGlassGender(), model.getGlassId(), model.getGlassImage(),
+                                    model.getGlassMaterial(), model.getGlassModel(), model.getGlassName(), model.getGlassPrice(),
+                                    model.getGlassRating(), model.getGlassType(), model.getGlassWarranty())).addToBackStack(null).commit();
+                }
+
         });
+
+//        holder.name.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AppCompatActivity appCompatActivity = (AppCompatActivity) v.getContext();
+//                appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.wrapper,
+//                        new AdminIndividualDecFragment(model.getGlassDiscount(), model.getGlassFeatures(),
+//                                model.getGlassId(), model.getGlassImage(),model.getGlassName(), model.getGlassPrice())).addToBackStack(null).commit();
+//            }
+//        });
 
 
     }
@@ -53,14 +70,15 @@ public class GlassItemsAdapter extends FirebaseRecyclerAdapter<ModelGlasses, Gla
     @NonNull
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.glass_item_view,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.glass_item_view, parent, false);
         return new myViewHolder(view);
     }
 
-    public static class myViewHolder extends RecyclerView.ViewHolder{
+    public static class myViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView img, remove;
         public TextView name, price, frame;
+        String type = "";
         public CardView cardView;
 
         public myViewHolder(@NonNull View itemView) {
@@ -70,6 +88,7 @@ public class GlassItemsAdapter extends FirebaseRecyclerAdapter<ModelGlasses, Gla
             price = (TextView) itemView.findViewById(R.id.view_Price);
             frame = (TextView) itemView.findViewById(R.id.view_Frame);
             remove = (ImageView) itemView.findViewById(R.id.cart_item_remove_btn);
+
         }
     }
 }

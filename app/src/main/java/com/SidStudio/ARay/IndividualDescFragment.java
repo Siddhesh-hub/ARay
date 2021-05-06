@@ -164,6 +164,7 @@ public class IndividualDescFragment extends Fragment {
 
     private void callARActivity() {
         Intent intent = new Intent(getContext(), ARscreen.class);
+        intent.putExtra("Model Name", glassModel);
         startActivity(intent);
     }
 

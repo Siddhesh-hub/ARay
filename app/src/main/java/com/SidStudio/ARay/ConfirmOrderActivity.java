@@ -93,74 +93,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         });
     }
 
-//    private void getDataFromPinCode(String pinCode) {
 //
-//        // clearing our cache of request queue.
-//        mRequestQueue.getCache().clear();
-//
-//        // below is the url from where we will be getting
-//        // our response in the json format.
-//        String url = "http://www.postalpincode.in/api/pincode/" + pinCode;
-//
-//        // below line is use to initialize our request queue.
-//        RequestQueue queue = Volley.newRequestQueue(ConfirmOrderActivity.this);
-//
-//        // in below line we are creating a
-//        // object request using volley.
-//        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                // inside this method we will get two methods
-//                // such as on response method
-//                // inside on response method we are extracting
-//                // data from the json format.
-//                try {
-//                    // we are getting data of post office
-//                    // in the form of JSON file.
-//                    JSONArray postOfficeArray = response.getJSONArray("PostOffice");
-//                    if (response.getString("Status").equals("Error")) {
-//                        // validating if the response status is success or failure.
-//                        // in this method the response status is having error and
-//                        // we are setting text to TextView as invalid pincode.
-//                        pinCodeDetailsTV.setText("Pin code is not valid.1");
-//                    } else {
-//                        // if the status is success we are calling this method
-//                        // in which we are getting data from post office object
-//                        // here we are calling first object of our json array.
-//                        JSONObject obj = postOfficeArray.getJSONObject(0);
-//
-//                        // inside our json array we are getting district name,
-//                        // state and country from our data.
-//                        district = obj.getString("District");
-//                        state = obj.getString("State");
-//                        country = obj.getString("Country");
-//
-//                        // after getting all data we are setting this data in
-//                        // our text view on below line.
-//                        pinCodeDetailsTV.setText("District : " + district + "\n" + "State : "
-//                                + state + "\n" + "Country : " + country);
-//                    }
-//                } catch (JSONException e) {
-//                    // if we gets any error then it
-//                    // will be printed in log cat.
-//                    e.printStackTrace();
-//                    pinCodeDetailsTV.setText("Pin code is not valid2");
-//                }
-//            }
-//        },new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                // below method is called if we get
-//                // any error while fetching data from API.
-//                // below line is use to display an error message.
-//                Toast.makeText(ConfirmOrderActivity.this, "Pin code is not valid3.", Toast.LENGTH_SHORT).show();
-//                pinCodeDetailsTV.setText("Pin code is not valid4");
-//            }
-//        });
-//        // below line is use for adding object
-//        // request to our request queue.
-//        queue.add(objectRequest);
-//    }
 
     private boolean CheckForm() {
         if (TextUtils.isEmpty(phoneNo.getEditText().getText().toString())) {
@@ -245,10 +178,8 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(ConfirmOrderActivity.this, "Your order has been placed successfully.", Toast.LENGTH_SHORT).show();
-
-                                        Intent intent = new Intent(ConfirmOrderActivity.this, DashboardActivity.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        Intent intent = new Intent(ConfirmOrderActivity.this, PaymentActivity.class);
+                                        intent.putExtra("totalAmount", totalAmount);
                                         startActivity(intent);
                                         finish();
                                     }

@@ -69,6 +69,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         powerGlasses = findViewById(R.id.dashboard_powerglasses_imgview);
         searchBtn = findViewById(R.id.search_glass);
 
+
+
         searchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

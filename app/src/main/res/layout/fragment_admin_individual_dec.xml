@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Admin.AdminIndividualDecFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp">
+
+
+        <ImageView
+            android:id="@+id/admin_individual_image_edit"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
+
+
+        <EditText
+            android:id="@+id/admin_individual_name_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="250dp"
+            android:background="@drawable/black_border"
+            android:hint="Glass name"
+            android:padding="15dp"
+            android:singleLine="true"
+            android:textAlignment="center"
+            android:textColorHint="@color/red"
+            android:textSize="22sp" />
+
+        <EditText
+            android:id="@+id/admin_individual_price_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="320dp"
+            android:background="@drawable/black_border"
+            android:hint="Price"
+            android:inputType="number"
+            android:padding="15dp"
+            android:singleLine="true"
+            android:textAlignment="center"
+            android:textColorHint="@color/red"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/admin_individual_features_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="390dp"
+            android:background="@drawable/black_border"
+            android:hint="Features"
+            android:inputType="text"
+            android:padding="15dp"
+            android:singleLine="true"
+            android:textAlignment="center"
+            android:textColorHint="@color/red"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/admin_individual_discount_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="460dp"
+            android:background="@drawable/black_border"
+            android:hint="Discount"
+            android:inputType="number"
+            android:padding="15dp"
+            android:singleLine="true"
+            android:textAlignment="center"
+            android:textColorHint="@color/red"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/updateProductDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="550dp"
+            android:text="Update"
+            android:background="@color/black"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22sp"/>
+
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

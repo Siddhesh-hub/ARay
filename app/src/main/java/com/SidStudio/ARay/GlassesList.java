@@ -15,7 +15,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class GlassesList extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,4 +26,8 @@ public class GlassesList extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), DashboardActivity.class));
+    }
 }

@@ -198,6 +198,10 @@ public class CartActivity extends AppCompatActivity {
 
                         Toast.makeText(CartActivity.this, "You can purchase more products, once you received your first order", Toast.LENGTH_SHORT).show();
                     }else if (shippingState.equals("Not Shipped")){
+//                        Intent intent = new Intent(getApplicationContext(), PaymentActivity.class);
+//                        intent.putExtra("totalAmount", overTotalPrice);
+//                        startActivity(intent);
+//                        finish();
                         totalAmountTxtView.setText("Dear " + userName + "\n admin is confirming your order");
                         recyclerView.setVisibility(View.GONE);
                         txtMsg_1.setVisibility(View.VISIBLE);
